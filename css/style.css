@@ -1,0 +1,201 @@
+body {
+    font-family: "Yomogi";
+    font-size: 40px;
+
+    padding-top: 500px;
+}
+
+header {
+    position: fixed;
+    /*** ← fixedで固定 ***/
+    width: 100%;
+    background: whitesmoke;
+    top: 0;
+    left: 0;
+}
+
+h1 {
+    font-weight: bolder;
+    text-align: center;
+    font-size: 100px;
+
+    margin-top: 10px;
+}
+
+h2 {
+    font-size: 60px;
+    margin-bottom: 20px;
+}
+
+p {
+    font-size: 23px;
+}
+
+ul {
+    font-size: 23px;
+}
+
+.now {
+    text-align: right;
+}
+
+#move {
+    font-size: 30px;
+    border-radius: 40%;
+    background-color: rgb(105, 165, 243);
+    padding: 10px;
+}
+
+.museumURL {
+    /* padding: 30px; */
+    display: flex;
+    justify-content: space-around;
+}
+
+#from, #to {
+    width: 300px;
+    height: 40px;
+    font-size: 20px;
+}
+
+.route {
+    width: 100%;
+    text-align: center;
+
+    margin-top: 50px;
+    margin-bottom:50px;
+}
+
+#search {
+    width: 120px;
+    height: 40px;
+    font-size: 20px;
+}
+
+.content {
+    display: flex;
+
+    margin-top: 30px;
+    margin-bottom: 50px;
+}
+
+.flexLeft {
+    /* margin-left: 250px; */
+    margin-right: 75px;
+}
+
+.rank_ul {
+    padding: 10px;
+    display: table;
+    table-layout: fixed;
+}
+
+.rank_li {
+    display: table-cell;
+}
+
+.record {
+    width: 50%;
+    margin-left: 75px;
+}
+
+select {
+    width: 300px;
+    height: 40px;
+    font-size: 20px;
+
+    margin-top: 20px;
+    margin-left: 10px;
+}
+
+#kiroku {
+    width: 60px;
+    height: 40px;
+    font-size: 20px;
+
+    margin-left: 320px;
+}
+
+#finalEducation {
+    height: 40px;
+    font-size: 20px;
+
+    margin-left: 20px;
+}
+
+.plan {
+    margin-top: 30px;
+    margin-bottom: 50px;
+    /* margin-left: 50px; */
+    text-align: center;
+}
+
+#text_area {
+    margin-left: 140px;
+}
+
+#save {
+    width: 60px;
+    height: 40px;
+    font-size: 20px;
+}
+
+#clear {
+    width: 60px;
+    height: 40px;
+    font-size: 20px;
+}
+
+.album {
+    margin-top: 30px;
+    margin-left: 75px;
+    margin-right: 75px;
+}
+
+.slide-paused:hover .slide-wrapper {
+    animation-play-state: paused;
+}
+
+.slide-paused:hover .slide-wrapper img:hover {
+    opacity: .8;
+    cursor: grabbing;
+}
+
+.slide-container {
+    width: 100%;
+    margin: 50px auto;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+.slide-wrapper {
+    display: flex;
+    animation: slide-flow 80s infinite linear 1s both;
+}
+
+.slide {
+    width: 300px;
+    object-fit: cover;
+    border: 1px solid #ddd;
+}
+
+@keyframes slide-flow {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+footer {
+    font-size: 20px;
+    background-color: rgb(1, 1, 136);
+    color: aliceblue;
+    text-align: center;
+
+    margin-top: 100px;
+}
+

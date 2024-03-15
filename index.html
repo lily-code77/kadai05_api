@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- css -->
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/style.css">
+    <!-- jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <!-- google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Yomogi&display=swap" rel="stylesheet">
+
+    <title>小鉄の冒険MAP</title>
+</head>
+<body>
+    <header>
+        <!--MAPを表示する (header固定) -->
+        <div id="myMap"
+        style="position: relative; width: 100%; height: 450px;"></div>
+        <!--MAP[END]-->
+        <p class="now">
+            Let's Go For A Museum Tour!
+            <button id='move'>START</button>
+        </p>
+    </header>
+
+    <main>
+        <!-- スクロールするとimgが横に動く -->
+
+        <h1>小鉄の冒険マップ</h1>
+
+        <!-- 各博物館へのリンク -->
+        <div class="museumURL">
+            <div class="left">
+                <a href="http://www.s-304.com/" target="_blank" rel="noopener noreferrer">三笠鉄道村</a><br>
+                <a href="https://ja.wikipedia.org/wiki/%E6%96%B0%E5%B9%B9%E7%B7%9A%E7%B7%8F%E5%90%88%E8%BB%8A%E4%B8%A1%E3%82%BB%E3%83%B3%E3%82%BF%E3%83%BC"
+                    target="_blank" rel="noopener noreferrer">新幹線総合車両センター</a><br>
+                <a href="https://www.tobu.co.jp/museum/" target="_blank" rel="noopener noreferrer">東武博物館</a><br>
+                <a href="https://www.railway-museum.jp/" target="_blank" rel="noopener noreferrer">鉄道博物館</a><br>
+                <a href="https://www.ncnrm.com/" target="_blank" rel="noopener noreferrer">新津鉄道資料館</a><br>
+            </div>
+            <div class="center">
+                <a href="https://www.usuitouge.com/bunkamura/map/" target="_blank" rel="noopener noreferrer">碓氷峠鉄道文化むら</a><br>
+                <a href="https://www.chikahaku.jp/" target="_blank" rel="noopener noreferrer">地下鉄博物館</a><br>
+                <a href="https://www.hara-mrm.com/" target="_blank" rel="noopener noreferrer">原鉄道模型博物館</a><br>
+                <a href="https://museum.jr-central.co.jp/" target="_blank" rel="noopener noreferrer">リニア鉄道館</a><br>
+                <a href="http://frm.kans.jp/" target="_blank" rel="noopener noreferrer">貨物鉄道博物館</a><br>
+            </div>
+            <div class="right">
+                <a href="https://kitabiwako.jp/tetsudou/" target="_blank" rel="noopener noreferrer">長浜鉄道スクエア</a><br>
+                <a href="https://www.kyotorailwaymuseum.jp/" target="_blank" rel="noopener noreferrer">京都鉄道博物館</a><br>
+                <a href="https://www.city.kasaoka.okayama.jp/soshiki/39/2408.html" target="_blank"
+                    rel="noopener noreferrer">井笠鉄道記念館</a><br>
+                <a href="http://www.k-rhm.jp/" target="_blank" rel="noopener noreferrer">九州鉄道記念館</a><br>
+                <a href="https://www.jrkyushu.co.jp/company/esg/kengakutai/" target="_blank" rel="noopener noreferrer">熊本総合車両所</a>
+            </div>
+        </div>
+        
+        <!-- 経路表示 （Flex）-->
+        <section class="route">
+            <!--Directions[START]-->
+            <h2>経路表示</h2>
+            From:<input type="text" id="from" value="御茶ノ水">
+            To:<input id="to" value="表参道">
+            <select id="mode">
+                <option value="walking">walking</option>
+                <option value="driving">driving</option>
+            </select>
+            <input type="button" id="search" value="ルート検索">
+            <div id="direction"></div>
+            <!-- Directions[END] -->
+        </section>
+
+        <section class="content">
+            <div class="record">
+                <h2>訪問記録</h2>
+                <form name="form" action="" method="post">
+                    <select name="museum" id="museum">
+                        <option value=""></option>
+                        <option value="地下鉄博物館">地下鉄博物館</option>
+                        <option value="東武博物館">東武博物館</option>
+                        <option value="鉄道博物館">鉄道博物館</option>
+                        <option value="原鉄道模型博物館">原鉄道模型博物館</option>
+                    </select>
+                </form>
+                <input id="kiroku" type="button" value="記録">
+                <div id="wentTo"></div>
+            </div>
+            
+            <div class="flexLeft">
+                <!-- 階級 （3つのスタンプ）（Flex）-->
+                <h2 id="academy">鉄ちゃんアカデミア<button id="finalEducation">最終学歴</button></h2>
+                <div class="stamps">
+                    <ul class="rank_ul">
+                        <li id="bachelor" class="rank_li"><img src="./img/fumikiri.jpg" alt="踏切" width="200px"></li>
+                        <li id="master" class="rank_li"><img src="./img/fumikiri.jpg" alt="踏切" width="200px"></li>
+                        <li id="doctor" class="rank_li"><img src="./img/fumikiri.jpg" alt="踏切" width="200px"></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 旅のPLAN表（memo)-->
+        <section class="plan">
+            <h2>旅のしおり</h2>
+            <a href="https://transit.yahoo.co.jp/" target="_blank" rel="noopener noreferrer"><img src="./img/norikae.png" alt="乗り換え案内" width="150px"></a>
+            <a href="https://kamotsu.jp/" target="_blank" rel="noopener noreferrer"><img src="./img/kamotu.png" alt="貨物チャンネル" width="150px"><br></a>
+            
+            <textarea id="text_area" cols="80" rows="10"></textarea>
+            <button id="save">保存</button>
+            <button id="clear">削除</button>
+        </section>
+        
+        <!-- 旅行中に撮った写真の展示（横に流れていくアニメーションにしたい） -->
+        <section class="album">
+            <h2>アルバム</h2>
+            <div class="slide-container slide-paused">
+                <div class="slide-wrapper">
+                    <img src="./img/withMom.jpg" alt="お母さんと一緒に汽車を見ている男の子" width="300px" height="auto">
+                    <img src="./img/trainMuseum.jpg" alt="鉄道博物館" width="300px">
+                    <img src="./img/boyDriver.jpg" alt="運転席に笑顔で座る男の子" width="300px" height="auto">
+                    <img src="./img/kamotutrain.jpg" alt="貨物列車" width="300px" height="auto">
+                    <img src="./img/platform.jpg" alt="プラットホームで新幹線を待つ男の子" width="300px" height="auto">
+                </div>
+                <div class="slide-wrapper">
+                    <img src="./img/withMom.jpg" alt="お母さんと一緒に汽車を見ている男の子" width="300px" height="auto">
+                    <img src="./img/trainMuseum.jpg" alt="鉄道博物館" width="300px">
+                    <img src="./img/boyDriver.jpg" alt="運転席に笑顔で座る男の子" width="300px" height="auto">
+                    <img src="./img/kamotutrain.jpg" alt="貨物列車" width="300px" height="auto">
+                    <img src="./img/platform.jpg" alt="プラットホームで新幹線を待つ男の子" width="300px" height="auto">
+                </div>
+                <div class="slide-wrapper">
+                    <img src="./img/withMom.jpg" alt="お母さんと一緒に汽車を見ている男の子" width="300px" height="auto">
+                    <img src="./img/trainMuseum.jpg" alt="鉄道博物館" width="300px">
+                    <img src="./img/boyDriver.jpg" alt="運転席に笑顔で座る男の子" width="300px" height="auto">
+                    <img src="./img/kamotutrain.jpg" alt="貨物列車" width="300px" height="auto">
+                    <img src="./img/platform.jpg" alt="プラットホームで新幹線を待つ男の子" width="300px" height="auto">
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>遅かれ早かれ、インターネットは利益を生むようになるでしょう。<br>
+        これは、運河、鉄道、自動車が以前に演じた古い話です。</footer>
+
+    <!-- JS -->
+    <!-- <script src="./js/apiKey.js"></script> -->
+    <script src="./js/script.js"></script>
+
+    <!-- BingMaps API -->
+    <!-- [ MapTypeId ] https://msdn.microsoft.com/en-us/library/mt712700.aspx -->
+    <script src='https://www.bing.com/api/maps/mapcontrol?callback=GetMap&key=' async defer></script>
+    <script src="./js/BmapQuery.js"></script>
+    <script>
+        //****************************************************************************************
+        // BingMaps&BmapQuery
+        //****************************************************************************************
+        //Init
+        // let map;
+        function GetMap() {
+            //------------------------------------------------------------------------
+            //1. Instance
+            //------------------------------------------------------------------------
+            const map = new Bmap("#myMap");
+            // map = new Bmap("#myMap");
+
+            //------------------------------------------------------------------------
+            //2. Display Map
+            //------------------------------------------------------------------------
+            map.startMap(35.691090, 139.700241, "load", 8); //The place is Bellevue.
+
+            //----------------------------------------------------
+            //3. Infobox
+            //   options = new Array();
+            //   options[index] = { lat, lon, width, height, title, pinColor, description };
+            //----------------------------------------------------
+            const options = [];
+            options[0] = {
+                "lat": 35.663357, 
+                "lon": 139.873810,
+                "title": "地下鉄博物館",
+                "pinColor": "#ff0000",
+                "height": 300,
+                "width": 320,
+                "description": '〒134-0084東京都江戸川区東葛西6丁目3-1<br>03-3878-5011<br>営業時間：火〜日（10:00 ~ 17:00) <br>休館日：毎週月曜日、年末年始(12/30 ~ 1/3)',
+                "show": false
+            };
+            options[1] = {
+                "lat": 35.723469, 
+                "lon": 139.819031,
+                "title": "東武博物館",
+                "pinColor": "#ff0000",
+                "height": 300,
+                "width": 320,
+                "description": '〒131-0032東京都墨田区東向島4丁目28-16<br>03-3614-8811<br>営業時間：火〜日（10:00 ~ 16:30）<br>休館日：毎週月曜日、年末年始(12/30 ~ 1/3)',
+                "show": false
+            };
+            options[2] = {
+                "lat": 35.463131, 
+                "lon": 139.624954,
+                "title": "原鉄道模型博物館",
+                "pinColor": "#ff0000",
+                "height": 300,
+                "width": 320,
+                "description": '〒220-0012神奈川県横浜市西区高島1丁目1-2<br>045-640-6699<br>営業時間：木〜月（10:00 ~ 17:00）<br>休館日：毎週火曜日/水曜日、年末年始、2月上旬（館内保守点検期間）',
+                "show": false
+            };
+            options[3] = {
+                "lat": 35.921104, 
+                "lon": 139.618073,
+                "title": "鉄道博物館",
+                "pinColor": "#ff0000",
+                "height": 300,
+                "width": 320,
+                "description": '〒330-0852埼玉県さいたま市大宮区大成町3丁目47<br>048-651-0088<br>営業時間：水〜月（10:00 ~ 17:00）<br>休館日：毎週火曜日、年末年始',
+                "show": false
+            };
+            //----------------------------------------------------
+            //4. Switch infoboxs
+            //   infoboxLayers(options, true); //true=one, false=Multiple
+            //----------------------------------------------------
+            map.infoboxLayers(options, true);
+
+            //------------------------------------------------------------------------
+            //Directions
+            // map.direction("#rootView", "from" , "to", waypoint[array]);
+            // !! 日本地図で表示してる場合のみルート検索可能（各国毎）以下パラメータ指定で制御も可能 !!
+            // +  [ English => https://www.bing.com/...&setLang=en&setMkt=en-US ]
+            // +  [ Japan   => https://www.bing.com/...&setLang=ja&setMkt=ja-JP ]
+            //------------------------------------------------------------------------
+            document.getElementById("search").onclick = function () {
+                //Get From,To
+                const from = document.getElementById("from").value;  //StartPoint
+                const to = document.getElementById("to").value;    //EndPoint
+                const mode = document.getElementById("mode").value;  //RouteMode[walking,driving]
+                //経由地あり
+                const array = [""];                       //Waypoints...
+                map.direction("#direction", mode, from, to, array);  //Direction Methed
+
+            //経由地なし
+            //map.direction("#direction", from , to, []);
+            }
+            document.getElementById("move").onclick = function () {
+            $(".now").html("三笠鉄道村");
+            //------------------------------------------------------------------------
+            //2. Display Map
+            //   startMap(lat, lon, "MapType", Zoom[1~20]);
+            //   MapType:[load, aerial,canvasDark,canvasLight,birdseye,grayscale,streetside]
+            //--------------------------------------------------
+            map.startMap(43.227341, 141.904068, "aerial", 19);//三笠鉄道村
+
+            //----------------------------------------------------
+            //3. MapChangeView
+            //   changeMap(lat, lon, "MapType", Zoom[1~20]);
+            //   "MapType":[load,aerial,canvasDark,canvasLight,birdseye,grayscale,streetside]
+            //----------------------------------------------------
+            // after 3 seconds.
+            setTimeout(function () {
+                $(".now").html("新幹線総合車両センター");
+                map.changeMap(38.320320, 140.974060, "aerial", 17);
+            }, 3000);//新幹線総合車両センター
+            // after 3 seconds.
+            setTimeout(function () {
+                $(".now").html("東武博物館");
+                map.changeMap(35.723469, 139.819031, "aerial", 17);
+            }, 6000);//東武博物館
+            // after 3 seconds.
+            setTimeout(function () {
+                $(".now").html("鉄道博物館");
+                map.changeMap(35.921104, 139.618073, "aerial", 17);
+            }, 9000);//鉄道博物館
+            // after 3 seconds.
+            setTimeout(function () {
+                $(".now").html("新津鉄道資料館");
+                map.changeMap(37.801769, 139.141830, "aerial", 17);
+            }, 12000);//新津鉄道資料館
+            // after 3 seconds.
+            setTimeout(function () {
+                $(".now").html("碓氷峠鉄道文化むら");
+                map.changeMap(36.336430, 138.733658, "aerial", 17);
+            }, 15000);//碓氷峠鉄道文化むら
+            // after 3 seconds.
+            setTimeout(function () {
+                $(".now").html("地下鉄博物館");
+                map.changeMap(35.663357, 139.873810, "aerial", 17);
+            }, 18000);//地下鉄博物館
+            // after 3 seconds.
+            setTimeout(function () {
+                $(".now").html("原鉄道模型博物館");
+                map.changeMap(35.463131, 139.624954, "aerial", 17);
+            }, 21000);//原鉄道模型博物館
+            // after 3 seconds.
+            setTimeout(function () {
+                $(".now").html("リニア鉄道館");
+                map.changeMap(35.048992, 136.850983, "aerial", 17);
+            }, 24000);//リニア鉄道館
+            // after 3 seconds.
+            setTimeout(function () {
+                $(".now").html("貨物鉄道博物館");
+                map.changeMap(35.123505, 136.518936, "aerial", 17);
+            }, 27000);//貨物鉄道博物館
+            // after 3 seconds.
+            setTimeout(function () {
+                $(".now").html("長浜鉄道スクエア");
+                map.changeMap(35.376873, 136.265869, "aerial", 17);
+            }, 30000);//長浜鉄道スクエア
+            // after 3 seconds.
+            setTimeout(function () {
+                $(".now").html("京都鉄道博物館");
+                map.changeMap(34.986050, 135.741730, "aerial", 17);
+            }, 33000);//京都鉄道博物館
+            // after 3 seconds.
+            setTimeout(function () {
+                $(".now").html("井笠鉄道記念館");
+                map.changeMap(34.569107, 133.525894, "aerial", 17);
+            }, 36000);//井笠鉄道記念館
+            // after 3 seconds.
+            setTimeout(function () {
+                $(".now").html("九州鉄道記念館");
+                map.changeMap(33.943157, 130.961792, "aerial", 17);
+            }, 39000);//九州鉄道記念館
+            // after 3 seconds.
+            setTimeout(function () {
+                $(".now").html("熊本総合車両所");
+                map.changeMap(32.706806, 130.673126, "aerial", 17);
+            }, 42000);//熊本総合車両所
+            }
+        }
+    </script>
+
+</body>
+</html>
