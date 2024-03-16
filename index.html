@@ -154,7 +154,17 @@
 
     <!-- BingMaps API -->
     <!-- [ MapTypeId ] https://msdn.microsoft.com/en-us/library/mt712700.aspx -->
-    <script src='https://www.bing.com/api/maps/mapcontrol?callback=GetMap&key=' async defer></script>
+    <script type="text/javascript" src="apiKey.js"></script>
+    <script type='text/javascript'>
+        const API_KEY = config.apikey;
+        document.addEventListener("DOMContentLoaded", function () {
+            var script = document.createElement("script");
+            script.src = 'https://www.bing.com/api/maps/mapcontrol?callback=GetMap&key=' + API_KEY;
+            script.async = true;
+            script.defer = true;
+            document.body.appendChild(script);
+        });
+    </script>
     <script src="./js/BmapQuery.js"></script>
     <script>
         //****************************************************************************************
