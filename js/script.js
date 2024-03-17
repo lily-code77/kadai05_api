@@ -19,6 +19,7 @@ let show = "";
 let total = 0;
 
 function academy() {
+
     const sentStrTotal = localStorage.getItem("total");
     console.log(typeof sentStrTotal);
     const sentTotal = Number(sentStrTotal);
@@ -39,10 +40,15 @@ function academy() {
 
 // 最終学歴ボタンが押されると学位が現れる。
 $("#finalEducation").on("click", function(){
+    total = JSON.parse(localStorage.getItem("total"));
+    console.log({total});
     academy();
 })
 
 $("#kiroku").on("click", function() {
+
+    total = JSON.parse(localStorage.getItem("total"));
+
     // 「記録」をクリックしたら#wentToに1回目のクリックから反映されるために必要
     localStorage.setItem("myRecord", JSON.stringify(record));
 
@@ -69,6 +75,7 @@ $("#kiroku").on("click", function() {
     
     // 書き込み ※JavaScriptオブジェクト -> JSON文字列に変換
     localStorage.setItem("myRecord", JSON.stringify(record));
+    localStorage.setItem("total", JSON.stringify(total));
 
     //画面に表示
     let show = "";
