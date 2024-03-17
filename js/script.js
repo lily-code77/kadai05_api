@@ -30,7 +30,7 @@ function academy() {
         $("#bachelor").html('<img src="../img/bachelor.png" alt="学士" width="200px">');
         $("#master").html('<img src="./img/master.png" alt="修士" width="200px">');
     }
-    else if (sentTotal === 9) {
+    else if (sentTotal >= 9) {
         $("#bachelor").html('<img src="../img/bachelor.png" alt="学士" width="200px">');
         $("#master").html('<img src="./img/master.png" alt="修士" width="200px">');
         $("#doctor").html('<img src="./img/doctor.png" alt="博士" width="200px">');
